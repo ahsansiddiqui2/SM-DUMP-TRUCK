@@ -3,53 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dump Truck Simulation</title>
+    <title>Advanced Dump Truck Simulation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>🚛 Dump Truck Operations Simulation</h1>
+    
+    <h1>🚛 Advanced Dump Truck Simulation</h1>
+    <p class="subtitle">An Event-Scheduling Model</p>
+
+    <div class="container-grid">
         
-        <div class="controls">
-            <h2>Parameters</h2>
-            <div class="param-grid">
-                <div>
-                    <label for="numTrucks">Trucks</label>
-                    <input type="number" id="numTrucks" value="6" min="1">
+        <div class="controls-column">
+            
+            <div class="card">
+                <h2>⚙️ Parameters</h2>
+                <div class="param-grid">
+                    <div>
+                        <label for="numTrucks">Trucks</label>
+                        <input type="number" id="numTrucks" value="6" min="1">
+                    </div>
+                    <div>
+                        <label for="numLoaders">Loaders</label>
+                        <input type="number" id="numLoaders" value="2" min="1">
+                    </div>
+                    <div>
+                        <label for="numScales">Scales</label>
+                        <input type="number" id="numScales" value="1" min="1">
+                    </div>
+                    <div>
+                        <label for="maxSimTime">Simulation Time (min)</label>
+                        <input type="number" id="maxSimTime" value="480" min="10">
+                    </div>
                 </div>
-                <div>
-                    <label for="numLoaders">Loaders</label>
-                    <input type="number" id="numLoaders" value="2" min="1">
-                </div>
-                <div>
-                    <label for="numScales">Scales</label>
-                    <input type="number" id="numScales" value="1" min="1">
-                </div>
-                <div>
-                    <label for="maxSimTime">Simulation Time (min)</label>
-                    <input type="number" id="maxSimTime" value="480" min="10">
+                <button id="startSim">Run Simulation</button>
+                <div id="error-output"></div>
+                <p class="note">
+                    <strong>Note:</strong> The classic initial state (5 trucks at loaders, 1 at scale)
+                    is used if trucks=6, loaders=2, and scales=1. Otherwise, all trucks start at the loader queue at T=0.
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>🎛️ Distributions</h2>
+                <p class="note format-guide">Format: <strong>time, probability</strong> (one entry per line). Probabilities for each table must sum to 1.0.</p>
+                
+                <div class="dist-grid">
+                    <div>
+                        <label for="loadingDist">Loading Time</label>
+                        <textarea id="loadingDist" rows="4">5, 0.3
+10, 0.5
+15, 0.2</textarea>
+                    </div>
+                    <div>
+                        <label for="weighingDist">Weighing Time</label>
+                        <textarea id="weighingDist" rows="4">12, 0.3
+14, 0.4
+16, 0.3</textarea>
+                    </div>
+                    <div>
+                        <label for="travelDist">Travel Time</label>
+                        <textarea id="travelDist" rows="4">40, 0.4
+60, 0.3
+80, 0.3</textarea>
+                    </div>
                 </div>
             </div>
-            <button id="startSim">Run Simulation</button>
-            <p class="note">
-                <strong>Note:</strong> The problem's initial state (5 trucks at loaders, 1 at scale)
-                is specifically for 6 trucks, 2 loaders, and 1 scale. If you change these,
-                the simulation will start with <strong>all trucks</strong> arriving at the loader queue at $t=0$.
-            </p>
+
         </div>
-        
-        <div class="output">
-            <div class="stats-container">
-                <h2>Simulation Statistics</h2>
+
+        <div class="output-column">
+
+            <div class="card">
+                <h2>📊 Simulation Statistics</h2>
                 <div id="stats-output">
                     <p>Click "Run Simulation" to see results.</p>
                 </div>
             </div>
-            <div class="log-container">
-                <h2>Event Log</h2>
-                <pre id="log-output"></pre>
+
+            <div class="card">
+                <h2>📋 Event Log</h2>
+                <div id="log-output"></div>
             </div>
+
         </div>
+
     </div>
     
     <script src="simulation.js"></script>
